@@ -1,1 +1,0 @@
-{"ast":null,"code":"import Day from './Day';\nexport default Day;","map":{"version":3,"sources":["/Users/work/Desktop/coding-interviews/calendar/components/Day/index.js"],"names":["Day"],"mappings":"AAAA,OAAOA,GAAP,MAAgB,OAAhB;AACA,eAAeA,GAAf","sourcesContent":["import Day from './Day'\nexport default Day"]},"metadata":{},"sourceType":"module"}

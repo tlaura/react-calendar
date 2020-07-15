@@ -1,1 +1,0 @@
-{"ast":null,"code":"export default function Weekday() {}","map":{"version":3,"sources":["/Users/work/Desktop/coding-interviews/calendar/components/Weekday/Weekday.js"],"names":["Weekday"],"mappings":"AACA,eAAe,SAASA,OAAT,GAAmB,CAEjC","sourcesContent":["\nexport default function Weekday() {\n \n}\n"]},"metadata":{},"sourceType":"module"}
