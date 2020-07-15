@@ -13,6 +13,8 @@ export default function CalendarApp() {
   const [monthToDisplay, setMonthToDisplay] = useState(getMonth(currentDate));
 
   const nextMonth = getNextMonth(moment());
+  const nextMonthIndex = moment().month() + 4;
+  const monthIndex = moment().month();
 
   return (
     <Box display="flex" flexDirection="row">
@@ -20,11 +22,13 @@ export default function CalendarApp() {
         fromDateCalendar={true}
         currentDate={currentDate}
         month={monthToDisplay}
-      ></Calendar>
+        monthIndex={monthIndex}
+      ></Calendar> 
       <Calendar
         toDateCalendar={true}
         currentDate={currentDate}
         month={nextMonth}
+        monthIndex={nextMonthIndex}
       ></Calendar>
     </Box>
   );

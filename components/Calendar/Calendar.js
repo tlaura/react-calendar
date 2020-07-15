@@ -31,10 +31,10 @@ export default function Calendar(props) {
   }
 
   let daysInMonth = [];
-  // if current month == monthToDisplay
-  let monthToDisplay = (moment(props.currentDate).format("MMMM") === props.month) ? moment(props.currentDate).format("MMMM") : props.month;
-  let monthIndex = moment().month(monthToDisplay).format("D");
-  let daysInGivenMonth = moment(`2020-${monthIndex}`, "YYYY-MM").daysInMonth()
+
+  let index = props.monthIndex + 1;
+  let monthIndex = props.monthIndex < 10 ? `2020-0${index}` : `2020-${index}`;
+  let daysInGivenMonth = moment(monthIndex, "YYYY-MM").daysInMonth();
 
   for (let i = 1; i <= daysInGivenMonth; i++) {
     let isBeforeCurrentDate = (i < props.currentDate.format("D") 
