@@ -9,8 +9,8 @@ import MonthHeader from "../MonthHeader";
 
 const useStyles = makeStyles({
   box: {
-    width: 500,
-    padding: 10,
+    width: 400,
+    padding: 15,
   },
 });
 
@@ -21,18 +21,24 @@ const firstDayOfMonth = (dateObj) =>
 
 export default function Calendar(props) {
   const classes = useStyles();
-  const [currentDate, setCurrentDate] = useState(moment());
-  const [currentMonth, setCurrentMonth] = useState(getMonth(currentDate));
+  // const [currentDate, setCurrentDate] = useState(moment());
+  // const [currentMonth, setCurrentMonth] = useState(getMonth(currentDate));
 
-  const daysBeforeMonthStart = firstDayOfMonth(currentDate);
+  const daysBeforeMonthStart = firstDayOfMonth(props.currentDate);
   let emptyCellsBeforeMonth = [];
   for (let i = 0; i < daysBeforeMonthStart; i++) {
     emptyCellsBeforeMonth.push(<TableCell key={i} />);
   }
 
   let daysInMonth = [];
-  for (let i = 1; i <= currentDate.daysInMonth(); i++) {
-    let isBeforeCurrentDate = i < currentDate.format("D") ? true : false;
+  // if current month == monthToDisplay
+  let monthToDisplay = (moment(props.currentDate).format("MMMM") === props.month) ? moment(props.currentDate).format("MMMM") : props.month;
+  let monthIndex = moment().month(monthToDisplay).format("D");
+  let daysInGivenMonth = moment(`2020-${monthIndex}`, "YYYY-MM").daysInMonth()
+
+  for (let i = 1; i <= daysInGivenMonth; i++) {
+    let isBeforeCurrentDate = (i < props.currentDate.format("D") 
+      && moment(props.currentDate).format("MMMM") === props.month)? true : false;
     daysInMonth.push(
       <Day
         isBeforeCurrentDate={isBeforeCurrentDate}
@@ -52,7 +58,7 @@ export default function Calendar(props) {
 
   return (
     <Box className={classes.box}>
-      <MonthHeader month={currentMonth}></MonthHeader>
+      <MonthHeader month={props.month} toDateCalendar={props.toDateCalendar}></MonthHeader>
       <Table>
         <TableHead>
           <DaysHeader></DaysHeader>
