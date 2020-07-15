@@ -1,23 +1,28 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { TableCell, Table, TableHead, TableBody } from "@material-ui/core";
+import { TableCell, Table, TableHead, TableBody, Box } from "@material-ui/core";
 import Day from "../Day";
 import DaysHeader from "../DaysHeader";
 import Week from "../Week";
 import { makeStyles } from "@material-ui/core/styles";
+import MonthHeader from "../MonthHeader";
 
 const useStyles = makeStyles({
-  table: {
-    width: 300,
+  box: {
+    width: 500,
+    padding: 10,
   },
 });
+
+const getMonth = (dateObj) => moment(dateObj).format("MMMM");
 
 const firstDayOfMonth = (dateObj) =>
   moment(dateObj).startOf("month").format("d");
 
-export default function Calendar() {
+export default function Calendar(props) {
   const classes = useStyles();
   const [currentDate, setCurrentDate] = useState(moment());
+  const [currentMonth, setCurrentMonth] = useState(getMonth(currentDate));
 
   const daysBeforeMonthStart = firstDayOfMonth(currentDate);
   let emptyCellsBeforeMonth = [];
@@ -38,22 +43,22 @@ export default function Calendar() {
   }
 
   var totalSlots = [...emptyCellsBeforeMonth, ...daysInMonth];
-  let counter = 0;
 
   let weeks = [];
-  for (let i = 0; i < totalSlots.length; i + 7) {
-    const weekdays = totalSlots.slice(counter, counter + 7);
-    weeks.push(<Week days={weekdays} index={i} />);
+  for (let i = 0; i < totalSlots.length; i = i + 7) {
+    const weekdays = totalSlots.slice(i, i + 7);
+    weeks.push(<Week days={weekdays} index={i} key={i} />);
   }
 
   return (
-    <div>
-      <Table className={classes}>
+    <Box className={classes.box}>
+      <MonthHeader month={currentMonth}></MonthHeader>
+      <Table>
         <TableHead>
           <DaysHeader></DaysHeader>
         </TableHead>
         <TableBody>{weeks}</TableBody>
       </Table>
-    </div>
+    </Box>
   );
 }

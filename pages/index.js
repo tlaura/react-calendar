@@ -1,5 +1,5 @@
-import Calendar from "../components/calendar/Calendar";
+import CalendarApp from "../components/CalendarApp/CalendarApp";
 
 export default function Index() {
-  return <Calendar />;
+  return <CalendarApp />;
 }

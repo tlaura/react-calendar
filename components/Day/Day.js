@@ -4,13 +4,13 @@ import { withStyles } from "@material-ui/core/styles";
 const StyledTableCell = withStyles((theme) => ({
   body: {
     background: theme.palette.background.grey,
-    width: 10,
+    color: theme.palette.common.white,
   },
 }))(TableCell);
 
 export default function Day(props) {
   if (props.isBeforeCurrentDate) {
-    return <StyledTableCell>{props.dayOfMonth}</StyledTableCell>;
+    return <StyledTableCell component="th" scope="row">{props.dayOfMonth}</StyledTableCell>;
   }
-  return <TableCell>{props.dayOfMonth}</TableCell>;
+  return <TableCell component="th" scope="row">{props.dayOfMonth}</TableCell>;
 }
