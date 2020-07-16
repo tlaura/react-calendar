@@ -14,36 +14,44 @@ const useStyles = makeStyles({
   },
 });
 
-const getMonth = (dateObj) => moment(dateObj).format("MMMM");
-
 const firstDayOfMonth = (dateObj) =>
   moment(dateObj).startOf("month").format("d");
 
-export default function Calendar(props) {
+export default function Calendar({
+  monthIndex,
+  fromDateCalendar,
+  toDateCalendar,
+}) {
   const classes = useStyles();
-  // const [currentDate, setCurrentDate] = useState(moment());
-  // const [currentMonth, setCurrentMonth] = useState(getMonth(currentDate));
+  let index = monthIndex + 1;
+  const monthFormatted = monthIndex < 10 ? `2020-0${index}` : `2020-${index}`;
+  const month = moment(monthFormatted, "YYYY-MM");
 
-  const daysBeforeMonthStart = firstDayOfMonth(props.currentDate);
+  const daysBeforeMonthStart = firstDayOfMonth(month);
   let emptyCellsBeforeMonth = [];
   for (let i = 0; i < daysBeforeMonthStart; i++) {
     emptyCellsBeforeMonth.push(<TableCell key={i} />);
   }
 
-  let daysInMonth = [];
-
-  let index = props.monthIndex + 1;
-  let monthIndex = props.monthIndex < 10 ? `2020-0${index}` : `2020-${index}`;
-  let daysInGivenMonth = moment(monthIndex, "YYYY-MM").daysInMonth();
+  const daysInMonth = [];
+  const daysInGivenMonth = month.daysInMonth();
+  const dayObj = month.clone();
+  const currentDate = moment();
 
   for (let i = 1; i <= daysInGivenMonth; i++) {
-    let isBeforeCurrentDate = (i < props.currentDate.format("D") 
-      && moment(props.currentDate).format("MMMM") === props.month)? true : false;
+    dayObj.date(i);
+    console.log(dayObj);
+    const isBeforeCurrentDate = dayObj.isBefore(currentDate);
+
+    // const handler = isAfterSelectedDate ? props.dayClickAfterHandler : props.dayClickHandler
+
     daysInMonth.push(
       <Day
-        isBeforeCurrentDate={isBeforeCurrentDate}
+        highlighted={!isBeforeCurrentDate}
+        disabled={isBeforeCurrentDate}
         dayOfMonth={i}
         key={i + daysBeforeMonthStart}
+        // handler={handler}
       ></Day>
     );
   }
@@ -58,7 +66,11 @@ export default function Calendar(props) {
 
   return (
     <Box className={classes.box}>
-      <MonthHeader month={props.month} toDateCalendar={props.toDateCalendar}></MonthHeader>
+      <MonthHeader
+        month={month}
+        toDateCalendar={toDateCalendar}
+        // TODO: here you should pass down the onClickHandler from props as a prop of MonthHeader
+      ></MonthHeader>
       <Table>
         <TableHead>
           <DaysHeader></DaysHeader>

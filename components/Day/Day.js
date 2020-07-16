@@ -1,16 +1,25 @@
-import { TableCell } from "@material-ui/core";
+import { TableCell, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
-const StyledTableCell = withStyles((theme) => ({
+const DisabledTableCell = withStyles((theme) => ({
   body: {
     background: theme.palette.background.grey,
     color: theme.palette.common.white,
   },
 }))(TableCell);
 
-export default function Day(props) {
-  if (props.isBeforeCurrentDate) {
-    return <StyledTableCell component="th" scope="row">{props.dayOfMonth}</StyledTableCell>;
+const HighlightedCell = withStyles((theme) => ({
+  body: {
+    background: theme.palette.common.main,
+  },
+}))(TableCell);
+
+export default function Day({ highlighted, disabled, dayOfMonth, onClick }) {
+  if (disabled) {
+    return <Button component={DisabledTableCell}>{dayOfMonth}</Button>;
   }
-  return <TableCell component="th" scope="row">{props.dayOfMonth}</TableCell>;
+  if (highlighted) {
+    return <Button component={HighlightedCell}>{dayOfMonth}</Button>;
+  }
+  return <Button component={TableCell}>{dayOfMonth}</Button>;
 }
