@@ -10,11 +10,11 @@ const DisabledTableCell = withStyles((theme) => ({
 
 const HighlightedCell = withStyles((theme) => ({
   body: {
-    background: theme.palette.common.main,
+    background: theme.palette.common.secondary,
   },
 }))(TableCell);
 
-export default function Day({ highlighted, disabled, dayOfMonth, onClick }) {
+export default function Day({ disabled, dayOfMonth, handleDayClick }) {
   if (disabled) {
     return (
       <Button component={DisabledTableCell} disabled>
@@ -22,8 +22,9 @@ export default function Day({ highlighted, disabled, dayOfMonth, onClick }) {
       </Button>
     );
   }
-  if (highlighted) {
-    return <Button component={HighlightedCell}>{dayOfMonth}</Button>;
-  }
-  return <Button component={TableCell}>{dayOfMonth}</Button>;
+  return (
+    <Button component={TableCell} onClick={handleDayClick(dayOfMonth)}>
+      {dayOfMonth}
+    </Button>
+  );
 }

@@ -3,16 +3,13 @@ import Calendar from "../Calendar";
 import { Box } from "@material-ui/core";
 import moment from "moment";
 
-const getMonth = (dateObj) => moment(dateObj).format("MMMM");
-
-const getNextMonth = (dateObj) =>
-  moment(dateObj).add(1, "months").format("MMMM");
-
 export default function CalendarApp() {
-  // // TODO: change currentDate to selectedDate, add new peice of state that is the end date of the selected range
 
   const currentMonth = moment().month();
-  const [selectedDate, setSelectedDate] = useState();
+
+  const [selectedStartDate, setSelectedStartDate] = useState();
+  const [selectedEndDate, setSelectedEndDate] = useState();
+
   const [monthIndexFromDateCalendar, setMonthIndexFromDateCalendar] = useState(
     currentMonth
   );
@@ -21,21 +18,30 @@ export default function CalendarApp() {
   );
 
   const handleNextMonthClick = () => {
-    if(monthIndexToDateCalendar < 11) {
+    if (monthIndexToDateCalendar < 11) {
       setMonthIndexToDateCalendar(monthIndexToDateCalendar + 1);
-    } 
+    }
   };
 
   const handlePrevMonthClick = () => {
-    if(monthIndexToDateCalendar > monthIndexFromDateCalendar + 1) {
+    if (monthIndexToDateCalendar > monthIndexFromDateCalendar + 1) {
       setMonthIndexToDateCalendar(monthIndexToDateCalendar - 1);
     }
+  };
+
+  const handleDayClick = (date) => {
+    if (selectedStartDate === undefined) {
+      setSelectedStartDate(date);
+      setSelectedEndDate(date + 1);
+    }
+  };
+
+  const handleDayClickAfterSelected = (date, monthInd) => {
+    if(monthInd > monthIndexFromDateCalendar || (date > selectedStartDate && monthInd == monthIndexFromDateCalendar)) {
+      setSelectedEndDate(date);
+    } 
   }
 
-  // create here your state update functions
-  // e.g. handleNextMonthClick(), handlePreviousMonthClick()
-
-  // create another update function - setSelectedDate
   // handleDayClick (date) {  set the selectedDate, set the endDate to selectedDate + 1 day   }
   // handleDayClickAfterSelected (date) { set the endDate of the range }
 
@@ -44,12 +50,14 @@ export default function CalendarApp() {
       <Calendar
         toDateCalendar={false}
         monthIndex={monthIndexFromDateCalendar}
+        handleDayClick={handleDayClick}
       ></Calendar>
       <Calendar
         toDateCalendar={true}
         monthIndex={monthIndexToDateCalendar}
         handleNextMonthClick={handleNextMonthClick}
         handlePrevMonthClick={handlePrevMonthClick}
+        handleDayClick={handleDayClick}
       ></Calendar>
     </Box>
   );

@@ -21,13 +21,13 @@ export default function Calendar({
   monthIndex,
   toDateCalendar,
   handleNextMonthClick,
-  handlePrevMonthClick
+  handlePrevMonthClick,
+  handleDayClick
 }) {
   const classes = useStyles();
 
   let index = monthIndex + 1;
   const monthFormatted = index < 10 ? `2020-0${index}` : `2020-${index}`;
-  console.log(monthFormatted)
   const month = moment(monthFormatted, "YYYY-MM");
 
   const daysBeforeMonthStart = firstDayOfMonth(month);
@@ -49,10 +49,10 @@ export default function Calendar({
 
     daysInMonth.push(
       <Day
-        highlighted={!isBeforeCurrentDate}
         disabled={isBeforeCurrentDate}
         dayOfMonth={i}
         key={i + daysBeforeMonthStart}
+        handleDayClick={handleDayClick}
         // handler={handler}
       ></Day>
     );
