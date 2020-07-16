@@ -2,6 +2,22 @@ import React, { useState } from "react";
 import Calendar from "../Calendar";
 import { Box, Button } from "@material-ui/core";
 import moment from "moment";
+import { withStyles } from "@material-ui/core/styles";
+
+const StyledButton = withStyles({
+  root: {
+    background: "#80697c",
+    borderRadius: 3,
+    border: 0,
+    color: "white",
+    height: 48,
+    padding: "0 30px",
+    margin: 20,
+  },
+  label: {
+    textTransform: "capitalize",
+  },
+})(Button);
 
 export default function CalendarApp() {
   const currentMonth = moment().month();
@@ -51,24 +67,28 @@ export default function CalendarApp() {
   };
 
   return (
-    <Box display="flex" flexDirection="row">
-      <Calendar
-        toDateCalendar={false}
-        monthIndex={monthIndexFromDateCalendar}
-        handleDayClick={handleDayClick}
-        selectedStartDate={selectedStartDate}
-        selectedEndDate={selectedEndDate}
-      ></Calendar>
-      <Calendar
-        toDateCalendar={true}
-        monthIndex={monthIndexToDateCalendar}
-        handleNextMonthClick={handleNextMonthClick}
-        handlePrevMonthClick={handlePrevMonthClick}
-        handleDayClick={handleDayClick}
-        selectedStartDate={selectedStartDate}
-        selectedEndDate={selectedEndDate}
-      ></Calendar>
-      <Button onClick={resetDates}>Reset</Button>
+    <Box>
+      <Box display="flex" flexDirection="row">
+        <Calendar
+          toDateCalendar={false}
+          monthIndex={monthIndexFromDateCalendar}
+          handleDayClick={handleDayClick}
+          selectedStartDate={selectedStartDate}
+          selectedEndDate={selectedEndDate}
+        ></Calendar>
+        <Calendar
+          toDateCalendar={true}
+          monthIndex={monthIndexToDateCalendar}
+          handleNextMonthClick={handleNextMonthClick}
+          handlePrevMonthClick={handlePrevMonthClick}
+          handleDayClick={handleDayClick}
+          selectedStartDate={selectedStartDate}
+          selectedEndDate={selectedEndDate}
+        ></Calendar>
+      </Box>
+      <StyledButton onClick={resetDates} color="#633e5a">
+        Reset
+      </StyledButton>
     </Box>
   );
 }
