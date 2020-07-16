@@ -5,14 +5,11 @@ import React from "react";
 
 const StyledTableRow = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.background.header,
   },
 }))(TableRow);
 
-// const useStyles = makeStyles({yadayada})
-
 export default function DaysHeader() {
-  // const classes = useStyles()
   let weekdayNames = moment
     .weekdaysShort()
     .map((day) => <TableCell key={day}>{day}</TableCell>);

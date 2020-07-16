@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "../Calendar";
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import moment from "moment";
 
 export default function CalendarApp() {
@@ -30,33 +30,24 @@ export default function CalendarApp() {
   };
 
   const handleDayClick = (date) => {
-    /*
-      if start date is undefined
-
-      if date is before start date
-         call one of those handleDayClick functions
-
-      if date is after start and before end
-          call one of those handleDayClick functions
-
-      if date is after end
-          call one of those handleDayClick functions
-
-    */
-
+    if (date < selectedStartDate) {
+      setSelectedStartDate(date);
+    }
+    if (date > selectedStartDate && date < selectedEndDate) {
+      setSelectedEndDate(date);
+    }
+    if (date > selectedEndDate) {
+      setSelectedEndDate(date);
+    }
     if (selectedStartDate === undefined) {
       setSelectedStartDate(date);
       setSelectedEndDate(date.clone().add(1, "days"));
     }
   };
 
-  const handleDayClickAfterSelected = (date, monthInd) => {
-    if (
-      monthInd > monthIndexFromDateCalendar ||
-      (date > selectedStartDate && monthInd == monthIndexFromDateCalendar)
-    ) {
-      setSelectedEndDate(date);
-    }
+  const resetDates = () => {
+    setSelectedStartDate(undefined);
+    setSelectedEndDate(undefined);
   };
 
   return (
@@ -77,6 +68,7 @@ export default function CalendarApp() {
         selectedStartDate={selectedStartDate}
         selectedEndDate={selectedEndDate}
       ></Calendar>
+      <Button onClick={resetDates}>Reset</Button>
     </Box>
   );
 }

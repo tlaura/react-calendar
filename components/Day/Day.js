@@ -5,7 +5,6 @@ import moment from "moment";
 const DisabledTableCell = withStyles((theme) => ({
   body: {
     background: theme.palette.background.grey,
-    color: theme.palette.common.white,
   },
 }))(TableCell);
 
