@@ -9,7 +9,7 @@ import MonthHeader from "../MonthHeader";
 
 const useStyles = makeStyles({
   box: {
-    width: 400,
+    width: 500,
     padding: 15,
   },
 });
@@ -19,10 +19,12 @@ const firstDayOfMonth = (dateObj) =>
 
 export default function Calendar({
   monthIndex,
-  fromDateCalendar,
   toDateCalendar,
+  handleNextMonthClick,
+  handlePrevMonthClick
 }) {
   const classes = useStyles();
+
   let index = monthIndex + 1;
   const monthFormatted = monthIndex < 10 ? `2020-0${index}` : `2020-${index}`;
   const month = moment(monthFormatted, "YYYY-MM");
@@ -40,7 +42,6 @@ export default function Calendar({
 
   for (let i = 1; i <= daysInGivenMonth; i++) {
     dayObj.date(i);
-    console.log(dayObj);
     const isBeforeCurrentDate = dayObj.isBefore(currentDate);
 
     // const handler = isAfterSelectedDate ? props.dayClickAfterHandler : props.dayClickHandler
@@ -69,7 +70,8 @@ export default function Calendar({
       <MonthHeader
         month={month}
         toDateCalendar={toDateCalendar}
-        // TODO: here you should pass down the onClickHandler from props as a prop of MonthHeader
+        handleNextMonthClick={handleNextMonthClick}
+        handlePrevMonthClick={handlePrevMonthClick}
       ></MonthHeader>
       <Table>
         <TableHead>

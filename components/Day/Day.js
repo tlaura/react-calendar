@@ -16,7 +16,11 @@ const HighlightedCell = withStyles((theme) => ({
 
 export default function Day({ highlighted, disabled, dayOfMonth, onClick }) {
   if (disabled) {
-    return <Button component={DisabledTableCell}>{dayOfMonth}</Button>;
+    return (
+      <Button component={DisabledTableCell} disabled>
+        {dayOfMonth}
+      </Button>
+    );
   }
   if (highlighted) {
     return <Button component={HighlightedCell}>{dayOfMonth}</Button>;

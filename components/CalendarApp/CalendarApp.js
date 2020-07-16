@@ -8,26 +8,29 @@ const getMonth = (dateObj) => moment(dateObj).format("MMMM");
 const getNextMonth = (dateObj) =>
   moment(dateObj).add(1, "months").format("MMMM");
 
-
-
 export default function CalendarApp() {
-  // const [currentDate, setCurrentDate] = useState(moment());
-  // const [monthToDisplay, setMonthToDisplay] = useState(getMonth(currentDate));
   // // TODO: change currentDate to selectedDate, add new peice of state that is the end date of the selected range
 
-  // // these functions should use the state - monthToDisplay
-  // const nextMonth = getNextMonth(moment());
-  // const nextMonthIndex = moment().month() + 1;
-  // const monthIndex = moment().month();
-
-  const currentMonth = moment().month()
+  const currentMonth = moment().month();
   const [selectedDate, setSelectedDate] = useState();
-  const [monthToDisplayCalendarOne, setMonthToDisplayCalendarOne] = useState(currentMonth);
-  const [monthToDisplayCalendarTwo, setMonthToDisplayCalendarTwo] = useState(currentMonth + 1);
+  const [monthIndexFromDateCalendar, setMonthIndexFromDateCalendar] = useState(
+    currentMonth
+  );
+  const [monthIndexToDateCalendar, setMonthIndexToDateCalendar] = useState(
+    currentMonth + 1
+  );
 
-  
+  const handleNextMonthClick = () => {
+    if(monthIndexToDateCalendar < 11) {
+      setMonthIndexToDateCalendar(monthIndexToDateCalendar + 1);
+    } 
+  };
 
-
+  const handlePrevMonthClick = () => {
+    if(monthIndexToDateCalendar > monthIndexFromDateCalendar + 1) {
+      setMonthIndexToDateCalendar(monthIndexToDateCalendar - 1);
+    }
+  }
 
   // create here your state update functions
   // e.g. handleNextMonthClick(), handlePreviousMonthClick()
@@ -39,14 +42,14 @@ export default function CalendarApp() {
   return (
     <Box display="flex" flexDirection="row">
       <Calendar
-        fromDateCalendar={true}
-        monthIndex={monthToDisplayCalendarOne}
-        // then pass your handler function as a prop here
-        // e.g. handleNextMonthClick={handleNextMonthClick}
+        toDateCalendar={false}
+        monthIndex={monthIndexFromDateCalendar}
       ></Calendar>
       <Calendar
         toDateCalendar={true}
-        monthIndex={monthToDisplayCalendarTwo}
+        monthIndex={monthIndexToDateCalendar}
+        handleNextMonthClick={handleNextMonthClick}
+        handlePrevMonthClick={handlePrevMonthClick}
       ></Calendar>
     </Box>
   );
