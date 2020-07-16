@@ -26,7 +26,8 @@ export default function Calendar({
   const classes = useStyles();
 
   let index = monthIndex + 1;
-  const monthFormatted = monthIndex < 10 ? `2020-0${index}` : `2020-${index}`;
+  const monthFormatted = index < 10 ? `2020-0${index}` : `2020-${index}`;
+  console.log(monthFormatted)
   const month = moment(monthFormatted, "YYYY-MM");
 
   const daysBeforeMonthStart = firstDayOfMonth(month);
