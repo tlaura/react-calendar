@@ -6,7 +6,8 @@ const theme = createMuiTheme({
     background: {
       default: "#fff",
       grey: "#D3D3D3",
-      header: "#19857b"
+      header: "#19857b",
+      highlighted: "red"
     },
   },
 });

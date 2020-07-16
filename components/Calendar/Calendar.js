@@ -22,7 +22,9 @@ export default function Calendar({
   toDateCalendar,
   handleNextMonthClick,
   handlePrevMonthClick,
-  handleDayClick
+  handleDayClick,
+  selectedStartDate,
+  selectedEndDate
 }) {
   const classes = useStyles();
 
@@ -39,21 +41,18 @@ export default function Calendar({
   const daysInMonth = [];
   const daysInGivenMonth = month.daysInMonth();
   const dayObj = month.clone();
-  const currentDate = moment();
 
   for (let i = 1; i <= daysInGivenMonth; i++) {
     dayObj.date(i);
-    const isBeforeCurrentDate = dayObj.isBefore(currentDate);
-
-    // const handler = isAfterSelectedDate ? props.dayClickAfterHandler : props.dayClickHandler
 
     daysInMonth.push(
       <Day
-        disabled={isBeforeCurrentDate}
         dayOfMonth={i}
+        dayObj={dayObj.clone()}
+        selectedStartDate={selectedStartDate}
         key={i + daysBeforeMonthStart}
         handleDayClick={handleDayClick}
-        // handler={handler}
+        selectedEndDate={selectedEndDate}
       ></Day>
     );
   }

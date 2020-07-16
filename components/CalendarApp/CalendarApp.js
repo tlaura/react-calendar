@@ -4,7 +4,6 @@ import { Box } from "@material-ui/core";
 import moment from "moment";
 
 export default function CalendarApp() {
-
   const currentMonth = moment().month();
 
   const [selectedStartDate, setSelectedStartDate] = useState();
@@ -13,6 +12,7 @@ export default function CalendarApp() {
   const [monthIndexFromDateCalendar, setMonthIndexFromDateCalendar] = useState(
     currentMonth
   );
+
   const [monthIndexToDateCalendar, setMonthIndexToDateCalendar] = useState(
     currentMonth + 1
   );
@@ -30,20 +30,34 @@ export default function CalendarApp() {
   };
 
   const handleDayClick = (date) => {
+    /*
+      if start date is undefined
+
+      if date is before start date
+         call one of those handleDayClick functions
+
+      if date is after start and before end
+          call one of those handleDayClick functions
+
+      if date is after end
+          call one of those handleDayClick functions
+
+    */
+
     if (selectedStartDate === undefined) {
       setSelectedStartDate(date);
-      setSelectedEndDate(date + 1);
+      setSelectedEndDate(date.clone().add(1, "days"));
     }
   };
 
   const handleDayClickAfterSelected = (date, monthInd) => {
-    if(monthInd > monthIndexFromDateCalendar || (date > selectedStartDate && monthInd == monthIndexFromDateCalendar)) {
+    if (
+      monthInd > monthIndexFromDateCalendar ||
+      (date > selectedStartDate && monthInd == monthIndexFromDateCalendar)
+    ) {
       setSelectedEndDate(date);
-    } 
-  }
-
-  // handleDayClick (date) {  set the selectedDate, set the endDate to selectedDate + 1 day   }
-  // handleDayClickAfterSelected (date) { set the endDate of the range }
+    }
+  };
 
   return (
     <Box display="flex" flexDirection="row">
@@ -51,6 +65,8 @@ export default function CalendarApp() {
         toDateCalendar={false}
         monthIndex={monthIndexFromDateCalendar}
         handleDayClick={handleDayClick}
+        selectedStartDate={selectedStartDate}
+        selectedEndDate={selectedEndDate}
       ></Calendar>
       <Calendar
         toDateCalendar={true}
@@ -58,6 +74,8 @@ export default function CalendarApp() {
         handleNextMonthClick={handleNextMonthClick}
         handlePrevMonthClick={handlePrevMonthClick}
         handleDayClick={handleDayClick}
+        selectedStartDate={selectedStartDate}
+        selectedEndDate={selectedEndDate}
       ></Calendar>
     </Box>
   );
