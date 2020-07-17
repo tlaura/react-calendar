@@ -24,7 +24,7 @@ export default function Calendar({
   handlePrevMonthClick,
   handleDayClick,
   selectedStartDate,
-  selectedEndDate
+  selectedEndDate,
 }) {
   const classes = useStyles();
 
@@ -40,15 +40,14 @@ export default function Calendar({
 
   const daysInMonth = [];
   const daysInGivenMonth = month.daysInMonth();
-  const dayObj = month.clone();
+  const monthObj = month.clone();
 
   for (let i = 1; i <= daysInGivenMonth; i++) {
-    dayObj.date(i);
+    const dayObj = monthObj.clone().date(i);
 
     daysInMonth.push(
       <Day
-        dayOfMonth={i}
-        dayObj={dayObj.clone()}
+        dayObj={dayObj}
         selectedStartDate={selectedStartDate}
         key={i + daysBeforeMonthStart}
         handleDayClick={handleDayClick}

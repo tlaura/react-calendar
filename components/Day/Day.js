@@ -16,11 +16,11 @@ const HighlightedCell = withStyles((theme) => ({
 
 export default function Day({
   dayObj,
-  dayOfMonth,
   handleDayClick,
   selectedStartDate,
   selectedEndDate,
 }) {
+  const dayOfMonth = dayObj.format("D");
   const currentDate = moment();
   if (dayObj.isBefore(currentDate)) {
     return (
@@ -36,6 +36,7 @@ export default function Day({
     selectedStartDate &&
     dayObj.isSameOrAfter(selectedStartDate) &&
     dayObj.isSameOrBefore(selectedEndDate);
+
   if (isWithinSelectedDateRange) {
     return (
       <Button component={HighlightedCell} onClick={handleClick}>

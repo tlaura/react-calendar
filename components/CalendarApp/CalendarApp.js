@@ -86,7 +86,7 @@ export default function CalendarApp() {
           selectedEndDate={selectedEndDate}
         ></Calendar>
       </Box>
-      <StyledButton onClick={resetDates} color="#633e5a">
+      <StyledButton onClick={resetDates}>
         Reset
       </StyledButton>
     </Box>
