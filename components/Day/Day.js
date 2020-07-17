@@ -39,7 +39,7 @@ export default function Day({
 
   if (isWithinSelectedDateRange) {
     return (
-      <Button component={HighlightedCell} onClick={handleClick}>
+      <Button component={HighlightedCell} onClick={handleClick} data-testid="highlighted">
         {dayOfMonth}
       </Button>
     );

@@ -14,13 +14,13 @@ export default function MonthHeader({
   return (
     <Box display="flex" justifyContent="center">
       {toDateCalendar && (
-        <IconButton onClick={handlePrevMonthClick}>
+        <IconButton onClick={handlePrevMonthClick} data-testid="prevButton">
           <ArrowBackIosIcon />
         </IconButton>
       )}
       <Typography variant="h5">{monthString}</Typography>
       {toDateCalendar && (
-        <IconButton onClick={handleNextMonthClick}>
+        <IconButton onClick={handleNextMonthClick} data-testid="nextButton">
           <ArrowForwardIosIcon />
         </IconButton>
       )}
